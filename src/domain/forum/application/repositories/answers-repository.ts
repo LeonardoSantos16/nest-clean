@@ -1,4 +1,5 @@
-import { Answer } from '../forum/enterprise/entities/answer'
+import { Answer } from '../../enterprise/entities/answer'
+
 import { PaginationParams } from '@/core/repositories/pagination-params'
 export interface AnswersRepository {
   findManyByQuestionId(

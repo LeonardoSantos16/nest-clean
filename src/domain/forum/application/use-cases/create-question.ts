@@ -10,17 +10,14 @@ interface CreateQuestionUseCaseRequest {
   content: string
   attachmentsIds: string[]
 }
-
 type CreateQuestionUseCaseResponse = Either<
   null,
   {
     question: Question
   }
 >
-
 export class CreateQuestionUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
-
   async execute({
     authorId,
     title,
@@ -32,18 +29,14 @@ export class CreateQuestionUseCase {
       title,
       content,
     })
-
     const questionAttachments = attachmentsIds.map((attachmentId) => {
       return QuestionAttachment.create({
         attachmentId: new UniqueEntityID(attachmentId),
         questionId: question.id,
       })
     })
-
-    question.attachments = questionAttachments
     question.attachments = new QuestionAttachmentList(questionAttachments)
     await this.questionsRepository.create(question)
-
     return right({
       question,
     })
